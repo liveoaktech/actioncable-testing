@@ -3,7 +3,7 @@
 
 production:
   adapter: redis
-  url: <%=ENV['REDIS_URL']%>
+  url: <%=ENV['REDISCLOUD_URL']%>
 
 development:
   adapter: async
