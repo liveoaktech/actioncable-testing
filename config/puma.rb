@@ -17,11 +17,15 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 
 # In the development environment, set up a self-signed cert for running SSL
 if ENV["SSL_KEY_PATH"] and ENV["SSL_CERT_PATH"]
-  ssl_bind '127.0.0.1', '3000', { key: ENV.fetch("SSL_KEY_PATH"), cert: ENV.fetch("SSL_CERT_PATH"), verify_mode: 'none' }
+  ssl_bind '0.0.0.0', '3000', { key: ENV.fetch("SSL_KEY_PATH"), cert: ENV.fetch("SSL_CERT_PATH"), verify_mode: 'none' }
 elsif ENV['LOA_ENV'] == 'development'
-  # things are going to fail silently, but probably don't want to raise here, because the developer may
-  # want to run Puma standalone and pass switches manually.
+  # Things are going to fail silently, if the user doesn't specify SSL config on the command line. But we don't raise
+  # here, because the developer may want to run Puma standalone and pass switches manually.
+  puts "*** Starting Puma expecting SSL switches manually specified on the command line..."
+else
+  # This is what happens in staging/production - currently we don't need to do anything special here.
 end
+
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
