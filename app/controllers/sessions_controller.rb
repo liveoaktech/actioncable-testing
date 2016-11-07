@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(user_params)
+    user = User.find_for_login(user_params[:username])
     if user
       session[:user_id] = user.id
       redirect_to chatrooms_path
