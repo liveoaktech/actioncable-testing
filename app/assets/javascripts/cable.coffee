@@ -7,5 +7,8 @@
 #= require_self
 #= require_tree ./channels
 #
-# @App ||= {}
-# App.cable = ActionCable.createConsumer()
+# Every example app calls createConsumer with no arguments. However, doing that always fails - possibly it works in
+# http but not in https. With HTTPS, browsers get the following error in console:
+#     WebSocket connection to 'ws://localhost:3000/cable' failed: Connection closed before receiving a handshake response
+ @App ||= {}
+ App.cable = ActionCable.createConsumer("/cable")
