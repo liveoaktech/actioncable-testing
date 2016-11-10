@@ -1,12 +1,20 @@
-## Chatty: The Rails 5 + Action Cable Example App
+## Action Cable Tester
 
-This is a really simple chatting app to demonstrate one implementation of Action Cable in a Rails 5 app. Users can sign up/log in with a username and create a chatroom or choose from an existing one to start real-time messaging.
+Basted on "Chatty", a simple ActionCable demonstrator described in
+[an article on the Heroku blog](https://blog.heroku.com/archives/2016/5/9/real_time_rails_implementing_websockets_in_rails_5_with_action_cable)
+and available in a [github repo](https://github.com/SophieDeBenedetto/rails-5-action-cable-meetup). (the github repo version fixes some bugs
+in the original blog code).
 
-For a walk-through of this application, and to learn more about Action Cable (it's awesome, btw), you can check out [my article on the Heroku blog](https://blog.heroku.com/archives/2016/5/9/real_time_rails_implementing_websockets_in_rails_5_with_action_cable). You can view my deployment of this application [here](https://action-cable-example.herokuapp.com), or you can use the button below to deploy your own version (you'll need a Heroku account for that).
+It is also worth looking at the examples in the [ActionCable repo](https://github.com/rails/rails/tree/master/actioncable)
+and in the [Rails Guide](http://edgeguides.rubyonrails.org/action_cable_overview.html). 
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+This app is designed to mimic some basic behaviors of the Liveoak app. It requires SSL and runs the same version
+of Ruby and Rails as Liveoak, and uses the same Puma config. But it omits as many support libraries as possible
+that might affect the app's treatment by a firewall, such as rac-cors and rack-timeout. 
 
-To view an implementation of this project that uses multipe subscriptions to multiple chatrooms, check out this [repo](https://github.com/SophieDeBenedetto/rails-5-action-cable-meetup)
+The message system is DB-backed, but there is no auth. Users "sign up" by providing a name.
+
+
 
 ### Running Locally
 
@@ -23,4 +31,29 @@ Then, once you clone down this repo:
 
 And you're all set.
 
+Start the server with
 
+    foreman start
+
+and the Procfile will take care of the rest. 
+    
+#### Browser Support
+
+Chrome, Firefox, Opera, Brave (prob others) are fully supported.
+
+##### Safari
+
+Nothing websocket-related will work locally on Safari because Safari blocks websocket interactions with self-signed certificates.
+The console will have the error:
+
+    WebSocket network error: OSStatus Error -9807: Invalid certificate chain 
+
+##### Edge
+
+##### IE
+
+### Cases and Issues
+
+#### 1745 Web Sockets don't use authentication
+
+Relates to BSA 3959-002. Auth in ActionCable is now explicit. 
