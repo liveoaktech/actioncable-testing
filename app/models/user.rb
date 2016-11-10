@@ -7,4 +7,12 @@ class User < ApplicationRecord
   def self.find_for_login(name)
     where("lower(username) = ?", name.downcase).first
   end
+
+  def appear(data={})
+    logger.debug "user #{ self.id } appearing with:  #{ data }"
+  end
+
+  def disappear
+    logger.debug "user #{ self.id } disappearing"
+  end
 end
