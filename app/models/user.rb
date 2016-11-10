@@ -9,7 +9,10 @@ class User < ApplicationRecord
   end
 
   def appear(data={})
+    # There is perhaps no reason to tie this to user
     logger.debug "user #{ self.id } appearing with:  #{ data }"
+    # this could be done in PresenceChannel#receive as ActionCable.server.broadcast(blah)
+    PresenceBroadcastJob.perform_now self, data[:room_id]
   end
 
   def disappear

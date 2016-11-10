@@ -4,15 +4,8 @@ App.presence = App.cable.subscriptions.create "PresenceChannel",
     $(document).on "turbolinks:load.presence", =>
       @appear()
 
-    $(document).on "click.presence", buttonSelector, =>
-      @away()
-      false
-
-    $(buttonSelector).show()
-
   uninstall: ->
     $(document).off(".presence")
-    $(buttonSelector).hide()
 
   # Called when the subscription is ready for use on the server
   connected: ->
@@ -28,13 +21,13 @@ App.presence = App.cable.subscriptions.create "PresenceChannel",
     @uninstall()
 
   appear: ->
-    # Calls `PresenceChannel#appear(data)` on the server
-    @perform("appear", room_id: $("#room_identifier").data("room-id"))
+    # Calls `PresenceChannel#appear(data)` on the server with the room ID from the DOM
+    room_id = $("#room_identifier").data("room-id")
+    user_id = $("#room_identifier").data("user-id")
+    # This calls appear in the presence_channel with the room_id
+    @perform("appear", room_id: room_id)
+    # Tell everybody else we're here
+    App.presence.send({user_id: user_id, room_id: room_id})
 
-  away: ->
-    # Calls `PresenceChannel#away` on the server
-    @perform("away")
-
-
-  buttonSelector = "[data-behavior~=appear_away]"
-
+  received: (data) ->
+    return $("#presence-indicators-" + data.room_id).append(data.presence)

@@ -1,17 +1,21 @@
-<div class="row col-md-8 col-md-offset-2">
+<div id="room_identifier" class="row" data-room-id="<%= @chatroom.id %>" data-user-id="<%= current_user.id %>">
   <h1><%= @chatroom.topic %></h1>
-
-<div class="panel panel-default">
-  <% if @chatroom.messages.any? %>
-    <div class="panel-body" id="messages" data-chatroom=<%=@chatroom.id%>>
-      <%= render partial: 'messages/message', collection: @chatroom.messages%>
+  <div class="col-md-2">
+    <h4>Users</h4>
+    <div id="presence-indicators-<%= @chatroom.id %>"></div>
+  </div>
+  <div class="col-md-8">
+    <div class="panel panel-default">
+      <% if @chatroom.messages.any? %>
+        <div class="panel-body" id="messages-<%= @chatroom.id %>">
+          <%= render partial: 'messages/message', collection: @chatroom.messages%>
+        </div>
+      <%else%>
+        <div class="panel-body hidden" id="messages">
+        </div>
+      <%end%>
     </div>
-  <%else%>
-    <div class="panel-body hidden" id="messages">
-    </div>
-  <%end%>
-</div>
 
-
-  <%= render partial: 'messages/message_form', locals: {message: @message, chatroom: @chatroom}%>
+    <%= render partial: 'messages/message_form', locals: {message: @message, chatroom: @chatroom}%>
+  </div>
 </div>
