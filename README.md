@@ -5,7 +5,7 @@ Basted on "Chatty", a simple ActionCable demonstrator described in
 and available in a [github repo](https://github.com/SophieDeBenedetto/rails-5-action-cable-meetup). (the github repo version fixes some bugs
 in the original blog code).
 
-It is also worth looking at the examples in the [ActionCable repo](https://github.com/rails/rails/tree/master/actioncable)
+It is also worth looking at the examples in the [ActionCable repo](https://github.com/rails/rails/blob/master/actioncable/README.md)
 and in the [Rails Guide](http://edgeguides.rubyonrails.org/action_cable_overview.html). 
 
 This app is designed to mimic some basic behaviors of the Liveoak app. It requires SSL and runs the same version
