@@ -3,8 +3,8 @@ App.messages = App.cable.subscriptions.create 'MessagesChannel',
     $("#messages").removeClass('hidden')
     return $("[data-chatroom='" + data.chatroom_id + "']").append(data.message)
 
-  renderMessage: (data) ->
-    return "<p> <b>" + data.user + ": </b>" + data.message + "</p>"
+#  renderMessage: (data) ->
+#    return "<p> <b>" + data.user + ": </b>" + data.message + "</p>"
 
 # This fixes a problem with jQuery and Turbolinks which causes document ready to only work the first time landing on a
 # page, because that's the only time it actually loads. This gets around that problem.  See:
