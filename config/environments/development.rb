@@ -45,6 +45,9 @@ Rails.application.configure do
     config.force_ssl = true
   end
 
+  # This replaces quiet-assets gem. See:  https://rossta.net/blog/quiet-assets-in-rails-5.html
+  config.assets.quiet = true
+
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
