@@ -1,0 +1,15 @@
+<div class="row col-md-8 col-md-offset-2" id="room-title">
+  <h1>Rooms</h1>
+</div>
+
+<div class="row col-md-8 col-md-offset-2" id="rooms">
+    <ul id="room-index">
+  <% if @rooms.any? %>
+      <%= render @rooms%>
+  <%else %>
+    </ul>
+    <p>Be the first one to make a room!</p>
+    <%= render partial: 'room_form', locals: {room: @room} %>
+    <div id="room-errors"></div>
+  <% end %>
+</div>

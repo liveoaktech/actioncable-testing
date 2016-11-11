@@ -1,31 +1,31 @@
-// Place all the styles related to the chatrooms controller here.
+// Place all the styles related to the rooms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.chatroom-form {
+.room-form {
   margin: 5%;
   text-align: center;
 }
 
-#create-chatroom {
+#create-room {
   margin-top: 5%;
 }
 
-#chatroom-index {
+#room-index {
   list-style: none;
   font-size: 22px;
   padding-left: 0px;
 }
 
-#chatroom-index > li {
+#room-index > li {
   margin-left: 0px;
 }
 
-#chatrooms {
+#rooms {
   text-align: center;
 }
 
-#chatroom-title {
+#room-title {
   text-align: center;
 }
 

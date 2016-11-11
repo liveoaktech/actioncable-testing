@@ -1,0 +1,3 @@
+$("input#room_topic").val(" ")
+$("#room-errors").html(" ")
+$("#room-index").append('<li><%= link_to @room.topic, room_path(@room) %></li>')

@@ -9,6 +9,6 @@ class PresenceBroadcastJob < ApplicationJob
   private
 
   def render_presence(user)
-    ApplicationController.renderer.render(partial: 'chatrooms/presence', locals: { user: user })
+    ApplicationController.renderer.render(partial: 'rooms/presence', locals: { user: user })
   end
 end

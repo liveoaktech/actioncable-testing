@@ -4,6 +4,6 @@ class MessagesChannel < ApplicationCable::Channel
   end
 
   def receive(payload)
-    Message.create(user: current_user, chatroom_id: payload["chatroom_id"], content: payload["message"])
+    Message.create(user: current_user, room_id: payload["room_id"], content: payload["message"])
   end
 end
