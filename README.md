@@ -27,7 +27,7 @@ You'll need:
 Then, once you clone down this repo:
 
 * `bundle install`
-* `rake db:create; rake db:migrate`
+* `rake db:create; rake db:schema:load`
 
 And you're all set.
 

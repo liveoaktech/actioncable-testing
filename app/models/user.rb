@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :messages
   has_many :rooms, through: :messages
+  has_many :room_users
 
   validates :username, presence: true, uniqueness: true
 

@@ -10,9 +10,11 @@ class PresenceChannel < ApplicationCable::Channel
   end
 
   def appear(data)
-    current_user.appear room_id: data['room_id']
     # Create presence in some kind of presence table with entries belonging to user and room
-    # Presence.create user: user, room: room, other_stuff: stuff
+    RoomUser.find_or_create_by room_id: data['room_id'], user_id: current_user.id do |room_user|
+      room_user.status = 'present'
+    end
+    current_user.appear room_id: data['room_id']
   end
 
   def receive(payload)

@@ -30,4 +30,4 @@ App.presence = App.cable.subscriptions.create "PresenceChannel",
     App.presence.send({user_id: user_id, room_id: room_id})
 
   received: (data) ->
-    return $("#presence-indicators-" + data.room_id).append(data.presence)
+    return $("#presence-indicators-" + data.room_id).html(data.presence)

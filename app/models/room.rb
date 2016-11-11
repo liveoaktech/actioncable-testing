@@ -1,9 +1,10 @@
 class Room < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :users, through: :messages
+  has_many :room_users
+
   validates :topic, presence: true, uniqueness: true, case_sensitive: false
   before_validation :sanitize, :slugify
-
 
   def to_param
     self.slug

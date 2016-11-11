@@ -7,8 +7,6 @@
 #= require_self
 #= require_tree ./channels
 #
-# Every example app calls createConsumer with no arguments. However, doing that always fails - possibly it works in
-# http but not in https. With HTTPS, browsers get the following error in console:
-#     WebSocket connection to 'ws://localhost:3000/cable' failed: Connection closed before receiving a handshake response
+# This works with createConsumer() left to the default if both develop.rb and production.rb specificy config.action_cable.url
  @App ||= {}
  App.cable = ActionCable.createConsumer()
