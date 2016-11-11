@@ -18,6 +18,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
+    cookies.delete :user_id if cookies.signed[:user_id]
     redirect_to root_path
   end
 
