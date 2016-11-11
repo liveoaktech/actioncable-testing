@@ -11,4 +11,4 @@
 # http but not in https. With HTTPS, browsers get the following error in console:
 #     WebSocket connection to 'ws://localhost:3000/cable' failed: Connection closed before receiving a handshake response
  @App ||= {}
- App.cable = ActionCable.createConsumer("/cable")
+ App.cable = ActionCable.createConsumer()

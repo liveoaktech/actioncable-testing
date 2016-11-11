@@ -20,7 +20,7 @@ The message system is DB-backed, but there is no auth. Users "sign up" by provid
 
 You'll need:
 
-* Ruby 2.3.0
+* Ruby 2.3.1
 * Postgres
 * Redis
 
@@ -36,6 +36,13 @@ Start the server with
     foreman start
 
 and the Procfile will take care of the rest. 
+
+### Repo Management
+
+The repo has a develop branch for fiddling around, and a master for deploying, just in case multiple people want to tinker with it.
+There is no staging server since it's just a prototype, so the master runs on heroku as if it were a production server. Deploy with:
+
+     git push heroku master:master
     
 #### Browser Support
 

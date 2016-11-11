@@ -69,6 +69,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   # Maybe it's better to specify:  config.action_cable.mount_path = '/cable'   ??
-  config.action_cable.url = "ws://localhost:3000/cable"
+  config.action_cable.url = "/cable"
   config.action_cable.allowed_request_origins = [/https:\/\/*/]
 end
