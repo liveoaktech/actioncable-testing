@@ -9,14 +9,10 @@ class User < ApplicationRecord
     where("lower(username) = ?", name.downcase).first
   end
 
-  def appear(data={})
-    # There is perhaps no reason to tie this to user
+  # There is perhaps no reason to tie this to user - maybe broadcast directly from the presence channel?
+  def broadcast_presence(data={})
     logger.debug "user #{ self.id } appearing with:  #{ data }"
     # this could be done in PresenceChannel#receive as ActionCable.server.broadcast(blah)
-    PresenceBroadcastJob.perform_now self, data[:room_id]
-  end
-
-  def disappear
-    logger.debug "user #{ self.id } disappearing"
+    PresenceBroadcastJob.perform_now self, data[:room_id], data[:status]
   end
 end
