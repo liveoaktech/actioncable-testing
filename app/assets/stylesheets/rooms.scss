@@ -32,3 +32,31 @@
 #hidden {
   display: none;
 }
+
+.connection-never {
+  font-size: 24pt;
+  line-height: 16px;
+  vertical-align: middle;
+  color: grey;
+}
+
+.connection-up {
+  font-size: 24pt;
+  line-height: 16px;
+  vertical-align: middle;
+  color: green;
+}
+
+.connection-warning {
+  font-size: 24pt;
+  line-height: 16px;
+  vertical-align: middle;
+  color: yellow;
+}
+
+.connection-down {
+  font-size: 24pt;
+  line-height: 16px;
+  vertical-align: middle;
+  color: red;
+}

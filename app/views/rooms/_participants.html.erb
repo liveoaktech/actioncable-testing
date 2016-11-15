@@ -1,0 +1,36 @@
+<%# This draws the participant list in the same way it's currently done, to simulate the existing environment. %>
+<nav id="rightColumn">
+  <div class="participantsWrapper">
+    <div id="userCount">
+      <div><span id="count" class="count-participants"></span> Participants</div>
+    </div>
+
+    <%# We know we're in the room - this one is not rocket science. %>
+    <%= content_tag :div, class: 'publisherContainer separator', style: @solo ? 'display:none;' : '' do %>
+      <%= content_tag :div, class: 'userControlPanel' do %>
+        <div id="publisherControls" class="userControlPanel">
+          <%= content_tag :div, class: 'publisherLabel' do %>
+            <%# Show yourself as always up? %>
+            <span class="connection-up">•</span> <%= current_user.username %>
+          <% end %>
+        </div>
+      <% end %>
+      <div id="publisher"></div>
+    <% end %>
+
+
+    <%# Do we really need subscribers and subscribers container here? %>
+    <div class="subscribersContainer">
+      <div id="subscribers" class="subscribers">
+        <%# Initialize the participant list from the DB, then let join/leave update it.
+            Could that introduce a race condition such that someone can sneak in or out between initializing the list
+            and being ready to receive ActionCable messages?
+        %>
+        <% @room.room_users.each do |room_user| %>
+          <% next if room_user.user.id == current_user.id %>
+          <%= render partial: 'user_container', locals: { :dom_id_suffix => room_user.user.id, :user_identifier => room_user.user.username, :connection_status => room_user.status } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

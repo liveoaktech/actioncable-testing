@@ -1,9 +1,6 @@
+<%# Presence channel JS needs room.id and user.id and gets it from here %>
 <div id="room_identifier" class="row" data-room-id="<%= @room.id %>" data-user-id="<%= current_user.id %>">
   <h1><%= @room.topic %></h1>
-  <div class="col-md-2">
-    <h4>Users</h4>
-    <div id="presence-indicators-<%= @room.id %>"></div>
-  </div>
   <div class="col-md-8">
     <div class="panel panel-default">
       <% if @room.messages.any? %>
@@ -17,5 +14,8 @@
     </div>
 
     <%= render partial: 'messages/message_form', locals: {message: @message, room: @room}%>
+  </div>
+  <div class="col-md-2">
+    <%= render partial: "participants" %>
   </div>
 </div>

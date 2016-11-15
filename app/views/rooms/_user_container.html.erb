@@ -1,0 +1,8 @@
+<%= content_tag :div, id: "userContainer-#{ dom_id_suffix }", class: 'separator' do %>
+  <%= content_tag :div, id: "userBar-#{ dom_id_suffix }", class: "userControlPanel" do %>
+    <%= content_tag :div, class: 'userLabel', id: "userLabel-#{ dom_id_suffix }" do %>
+      <%= content_tag :span, '•'.html_safe, class: "connection-#{ connection_status }", id:"connection-status-#{ dom_id_suffix }" %>
+      <%= content_tag :span, user_identifier,  class: 'labelName', id: "label-#{ dom_id_suffix }" %>
+    <% end %>
+  <% end %>
+<% end %>
