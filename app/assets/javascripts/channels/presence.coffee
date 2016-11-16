@@ -11,12 +11,14 @@ $(document).ready ->
 
     uninstall: ->
       console.log "presence channel method @uninstall"
+      # TODO - figure out whether it's possible to distinguish between disconnect due to leaving the page vs. disconnect
+      #        due to connectivity, and change the status to warn rather than down, and attempt to reconnect.
       room_id = $("#room_identifier").data("room-id")
       user_id = $("#room_identifier").data("user-id")
       # stop_all_streams  # may want to try this to avoid weird multiple-streams problems
       # Changle the appearance of the current user
-      $("connection-status-" + user_id).removeClass("connection-never", "connection-up", "connection-warning", "connection-down");
-      $("connection-status-" + user_id).addClass("connection-down");
+      $("#connection-status-" + user_id).removeClass("connection-never connection-up connection-warning connection-down");
+      $("#connection-status-" + user_id).addClass("connection-down");
       # Then tell everybody else we left - goes through the user model to queue a broadcast
       @perform("disappear", room_id: room_id)
 
@@ -48,8 +50,8 @@ $(document).ready ->
       if $("#userContainer-" + data.user_id).length
         console.log "update is for an existing user: ", data
         # Change the class of the connection status indicator
-        $("connection-status-" + data.user_id).removeClass("connection-never", "connection-up", "connection-warning", "connection-down");
-        $("connection-status-" + data.user_id).addClass("connection-up");
+        $("#connection-status-" + data.user_id).removeClass("connection-never connection-up connection-warning connection-down");
+        $("#connection-status-" + data.user_id).addClass("connection-#{ data.status }");
       else if $("#room_identifier").data("user-id") == data.user_id
         console.log "update is for publisher (ignored): ", data
       else
@@ -57,5 +59,5 @@ $(document).ready ->
         # The user is being dynamically added - in the real app, we clone the hidden DIV "participant_template" and
         # adjust it to fit the new user. Here we just jam something in for demo purposes.
         name = data.username
-        $("#subscribers").append('<div id="userContainer-' + data.user_id + '"><div id="userBar-"' + data.user_id + '"><div id="userLabel-"' + data.user_id + '"><span class="connection-up">•</span> <span class="labelName" id="label-' + data.user_id + '">' + name + '</span></div></div></div>' )
+        $("#subscribers").append('<div id="userContainer-' + data.user_id + '"><div id="userBar-"' + data.user_id + '"><div id="userLabel-"' + data.user_id + '"><span class="connection-' + data.status + '">•</span> <span class="labelName" id="label-' + data.user_id + '">' + name + '</span></div></div></div>' )
       return true
