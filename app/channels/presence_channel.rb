@@ -21,10 +21,11 @@ class PresenceChannel < ApplicationCable::Channel
     # current_user.disappear
   end
 
+  # This gets called by the client side JS
   def appear(data)
-    logger.debug "Server presenceChannel appear with data:  #{ data }"
+    logger.debug "Server presenceChannel appear with data:  #{ data }, @room: #{ @room }"
     return unless data['room_id'].present?
-    # Add/update the user's entry in the presence table
+    # Add/update the user's entry in the presence table - maybe this should be a single call to RoomUser?
     begin
       room_user = RoomUser.find_or_create_by room_id: data['room_id'], user_id: current_user.id
       room_user.update_attribute :status, RoomUser::UP
