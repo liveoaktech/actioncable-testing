@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require_tree .
+//  Mirror LO structure of excluding room-specific js from the app.
+//  Rooms use a different layout that loads application.js and rooms.js
+// require_tree .

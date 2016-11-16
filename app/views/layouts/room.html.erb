@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Room</title>
+  <%= csrf_meta_tags %>
+  <%= action_cable_meta_tag %>
+
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= favicon_link_tag 'favicon.ico' %>
+  <%# In Liveoak, we're loading both application.js and rooms.js in the body tag (because of something to do with
+      Tokbox or TJS) - probably a good idea to mirror that setup, and verify that it works.
+    %>
+  <%= javascript_include_tag 'rooms' %>
+</head>
+
+<body>
+
+  <%= render partial: 'layouts/navbar' %>
+
+  <div class="container">
+    <%= yield %>
+  </div>
+</body>
+</html>
+

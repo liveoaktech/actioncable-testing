@@ -41,6 +41,7 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find_by(slug: params[:slug])
     @message = Message.new
+    render layout: 'room'
   end
 
   private
