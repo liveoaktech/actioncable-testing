@@ -1,13 +1,18 @@
 class PresenceChannel < ApplicationCable::Channel
-  def subscribed
-    # This supposedly makes the channel unique to a specific room - but it doesn't seem to work
-    # room = Room.find_by(slug: params[:slug])
-    # stream_for room
+  # This hangs around in memory as long as the channel stays open (unlike a controller request).
+  # So don't do anything in here to raise the memory footprint unnecessarily.
 
+  def subscribed
+    # Persist the room in the channel instance is created so we can refer to it later - most crucially at exit.
+    # The presence channel JS must be activated only upon entering the room, otherwise the slug won't be present.
+    @room = Room.find_by(slug: params[:room_id])
+    logger.debug "Room from room_id #{ params[:room_id] } is #{ @room }  (params: #{ params }"
+
+    # This supposedly makes the channel unique to a specific room - but it doesn't seem to work.
+    # Sending messages only to the right room would be preferable - currently they go to every room and get
+    # filtered by the JS check for matching room_id - which introduces massive unnecessary overhead.
+    # stream_for room
     stream_from 'presence'
-    # Adding the user here isn't possible unless we can get room info too.
-    # The presence messages exist entirely so we can send one message out containing the room ID.
-    # current_user.appear
   end
 
   def unsubscribed

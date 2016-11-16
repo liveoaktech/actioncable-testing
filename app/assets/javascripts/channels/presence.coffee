@@ -1,7 +1,6 @@
-App.presence = App.cable.subscriptions.create channel: "PresenceChannel",
-  # It's supposed to be possible to append a key here when creating the channel that limits access to the channel
-  # in presence_channel.rb - doesn't seem to work. It's supposed to look like this:
-  #  room_id: $("#room_identifier").data('room-id'),
+# Items passed after the channel name are exposed on the Ruby side as a params hash
+$(document).ready ->
+  App.presence = App.cable.subscriptions.create { channel: "PresenceChannel", room_id: $("#room_identifier").data('room-id') },
 
     install: ->
       console.log "presence channel method @install"
