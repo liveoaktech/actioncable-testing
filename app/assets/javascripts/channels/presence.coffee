@@ -3,11 +3,11 @@ App.presence = App.cable.subscriptions.create channel: "PresenceChannel",
   # in presence_channel.rb - doesn't seem to work. It's supposed to look like this:
   #  room_id: $("#room_identifier").data('room-id'),
 
-  install: ->
-    # Turbolinks breaks jQuery document ready - subsequent visits to the page won't regiseter as loads.
-    # Using turbolinks:load solves this problem.  Using the "fat arrow" here is a shortcut to define this and call this.appear
-    $(document).on "turbolinks:load.presence", =>
-      @appear()
+    install: ->
+      console.log "presence channel method @install"
+      # Turbolinks breaks jQuery document ready - some of that complexity is skipped because we're not using Turbolinks
+      $(document).ready =>
+        @appear()
 
   uninstall: ->
     room_id = $("#room_identifier").data("room-id")

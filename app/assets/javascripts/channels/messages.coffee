@@ -3,14 +3,13 @@ App.messages = App.cable.subscriptions.create 'MessagesChannel',
     $("#messages").removeClass('hidden')
     return $("#messages-" + data.room_id).append(data.message)
 
-# This fixes a problem with jQuery and Turbolinks which causes document ready to only work the first time landing on a
-# page, because that's the only time it actually loads. This gets around that problem.  See:
+# If we were using Turbolinks, document ready wouldn't work here.  See:
 # http://guides.rubyonrails.org/working_with_javascript_in_rails.html#turbolinks
 
 # Sending messages out can be done with an ActionCable send, or a regular Ajax form post.
 # It's not clear which one is beter.
 
-$(document).on 'turbolinks:load', ->
+$(document).ready ->
   $('textarea#message_content').keydown (event) ->
     if (event.keyCode == 13)
       msg = event.target.value
