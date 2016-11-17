@@ -59,5 +59,5 @@ $(document).ready ->
         # The user is being dynamically added - in the real app, we clone the hidden DIV "participant_template" and
         # adjust it to fit the new user. Here we just jam something in for demo purposes.
         name = data.username
-        $("#subscribers").append('<div id="userContainer-' + data.user_id + '"><div id="userBar-"' + data.user_id + '"><div id="userLabel-"' + data.user_id + '"><span class="connection-' + data.status + '">•</span> <span class="labelName" id="label-' + data.user_id + '">' + name + '</span></div></div></div>' )
+        $("#subscribers").append('<div id="userContainer-' + data.user_id + '"><div id="userBar-' + data.user_id + '"><div id="userLabel-' + data.user_id + '"><span class="connection-' + data.status + '" id="connection-status-' + data.user_id + '">•</span> <span class="labelName" id="label-' + data.user_id + '">' + name + '</span></div></div></div>' )
       return true
