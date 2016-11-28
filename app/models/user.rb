@@ -10,6 +10,7 @@ class User < ApplicationRecord
   end
 
   # There is perhaps no reason to tie this to user - maybe broadcast directly from the presence channel?
+  # Left here for now, used directly in presence channel though
   def broadcast_presence(data={})
     logger.debug "user #{ self.id } appearing with:  #{ data }"
     # this could be done in PresenceChannel#receive as ActionCable.server.broadcast(blah)

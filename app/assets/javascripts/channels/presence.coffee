@@ -42,11 +42,12 @@ $(document).ready ->
       console.log "presence channel method @appear"
       room_id = $("#room_identifier").data("room-id")
       user_id = $("#room_identifier").data("user-id")
+      console.log "presence channel method @appear for " + user_id + " in room " + room_id
       # This calls appear in the presence_channel with the room_id, which goes through the user model to broadcast the presence message
       @perform("appear", room_id: room_id)
 
     received: (data) ->
-      console.log "presence channel method @appear"
+      console.log "presence channel method @received"
       if $("#userContainer-" + data.user_id).length
         console.log "update is for an existing user: ", data
         # Change the class of the connection status indicator

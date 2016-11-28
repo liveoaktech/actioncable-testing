@@ -8,12 +8,11 @@ class PresenceChannel < ApplicationCable::Channel
     # TODO - need to check can access room here in LO
     logger.debug "Setting instance variable @room_id = #{ params[:room_id] } from params: #{ params }"
     @room_id = params[:room_id]
-
     # This supposedly makes the channel unique to a specific room - but it doesn't seem to work.
     # Sending messages only to the right room would be preferable - currently they go to every room and get
     # filtered by the JS check for matching room_id - which introduces massive unnecessary overhead.
     # stream_for @room
-    stream_from 'presence'
+    stream_from "room-#{params[:room_id]}:presence"
   end
 
   def unsubscribed
@@ -34,7 +33,7 @@ class PresenceChannel < ApplicationCable::Channel
       logger.error "Rescued attempt to create duplicate room_user"
     end
 
-    current_user.broadcast_presence room_id: data['room_id'], status: RoomUser::UP
+    PresenceBroadcastJob.perform_now current_user, data[:room_id], RoomUser::UP
   end
 
   def disappear(data)
@@ -44,7 +43,7 @@ class PresenceChannel < ApplicationCable::Channel
     room_user = RoomUser.find_by room_id: data[:room_id], user_id: current_user.id
     room_user.update_attribute :status, RoomUser::DOWN if room_user.present?
 
-    current_user.broadcast_presence room_id: data[:room_id], status: RoomUser::DOWN
+    PresenceBroadcastJob.perform_now current_user, data[:room_id], RoomUser::DOWN
   end
 
   def receive(payload)
