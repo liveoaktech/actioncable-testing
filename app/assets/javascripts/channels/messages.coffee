@@ -1,5 +1,12 @@
 App.messages = App.cable.subscriptions.create 'MessagesChannel',
+  install: ->
+    console.log "messages channel method @install"
+
+  connected: ->
+      console.log "messages channel method @connected"
+
   received: (data) ->
+    console.log "messages channel method @received"
     $("#messages").removeClass('hidden')
     return $("#messages-" + data.room_id).append(data.message)
 
