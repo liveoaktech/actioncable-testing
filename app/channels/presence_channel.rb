@@ -23,7 +23,7 @@ class PresenceChannel < ApplicationCable::Channel
 
   # This gets called by the client side JS
   def appear(data)
-    logger.debug "Server presenceChannel appear with data:  #{ data }, @room: #{ @room }"
+    logger.debug "Server presenceChannel appear with data:  #{ data }, @room: #{ @room } -- #{ data['room_id'] }"
     return unless data['room_id'].present?
     # Add/update the user's entry in the presence table - maybe this should be a single call to RoomUser?
     begin
@@ -33,17 +33,17 @@ class PresenceChannel < ApplicationCable::Channel
       logger.error "Rescued attempt to create duplicate room_user"
     end
 
-    PresenceBroadcastJob.perform_now current_user, data[:room_id], RoomUser::UP
+    PresenceBroadcastJob.perform_now current_user, data['room_id'], RoomUser::UP
   end
 
   def disappear(data)
-    logger.debug "Server presenceChannel disappear with data:  #{ data }"
+    logger.debug "Server presenceChannel disappear with data:  #{ data } -- #{ data['room_id'] }"
     return unless data[:room_id].present?
     # update the user's entry in the presence table
     room_user = RoomUser.find_by room_id: data[:room_id], user_id: current_user.id
     room_user.update_attribute :status, RoomUser::DOWN if room_user.present?
 
-    PresenceBroadcastJob.perform_now current_user, data[:room_id], RoomUser::DOWN
+    PresenceBroadcastJob.perform_now current_user, data['room_id'], RoomUser::DOWN
   end
 
   def receive(payload)
