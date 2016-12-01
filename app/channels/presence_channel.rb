@@ -18,6 +18,7 @@ class PresenceChannel < ApplicationCable::Channel
   def unsubscribed
     # This seems like the most reliable place to take the user out of the room.
     # This could be a problem, unless we can get the room_id here, since user could theoretically be in multiple rooms.
+    logger.debug "Presence channel unsubscribed in room ID #{ @room_id }"
     disappear room_id: @room_id
   end
 
