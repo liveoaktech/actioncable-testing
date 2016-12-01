@@ -4,7 +4,7 @@
   <div class="col-md-8">
     <div class="panel panel-default">
       <% if @room.messages.any? %>
-        <div class="panel-body" id="messages-<%= @room.id %>">
+        <div class="panel-body" id="messages"> <%# This shouldn't need a room_id appended if we're sending messages to only the right browser %>
           <%= render partial: 'messages/message', collection: @room.messages%>
         </div>
       <%else%>

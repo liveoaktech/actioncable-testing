@@ -7,8 +7,11 @@ App.messages = App.cable.subscriptions.create 'MessagesChannel',
 
   received: (data) ->
     console.log "messages channel method @received"
-    $("#messages").removeClass('hidden')
-    return $("#messages-" + data.room_id).append(data.message)
+    pane = $("#messages")  # we don't need to make the DOM ID unique to room if messages are going only to the right browser
+    pane.removeClass('hidden')
+    pane.append(data.message)
+    pane.scrollTop(pane.prop("scrollHeight"))   # bump scrolling every time we add a message - LO Activity window already does this with chatify(text)
+    return true
 
 # If we were using Turbolinks, document ready wouldn't work here.  See:
 # http://guides.rubyonrails.org/working_with_javascript_in_rails.html#turbolinks
@@ -17,6 +20,11 @@ App.messages = App.cable.subscriptions.create 'MessagesChannel',
 # It's not clear which one is beter.
 
 $(document).ready ->
+  # Scroll to the bottom of messages, in case the room already has enough messages to fill the window
+  pane = $("#messages")
+  pane.scrollTop(pane.prop("scrollHeight"))
+
+  # Send message text out via AC on return key events, then clear it
   $('textarea#message_content').keydown (event) ->
     if (event.keyCode == 13)
       msg = event.target.value
